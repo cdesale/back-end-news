@@ -1,3 +1,8 @@
 # Northcoders News API
 
-For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
+## Setup
+
+Please follow below steps to setup the project locally
+
+- Create two .env files `.env.development` and `.env.test` and add `PGDATABASE=<name_of_the_database>`, with the correct database name for that environment (see /db/setup.sql for the database names).
+- Run npm install at this point.
