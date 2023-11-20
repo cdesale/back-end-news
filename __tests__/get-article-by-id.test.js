@@ -20,6 +20,7 @@ describe("GET /api/articles/:article_id", () => {
       .expect(200)
       .then(({ body }) => {
         const { article } = body;
+        expect(article.article_id).toBe(1);
         expect(article).toMatchObject({
           title: expect.any(String),
           topic: expect.any(String),
