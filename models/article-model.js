@@ -9,8 +9,8 @@ exports.selectArticleById = (article_id) => {
     }
     return rows[0];
   });
-
-  exports.selectArticles = () => {
+};
+exports.selectArticles = () => {
   return db
     .query(
       `SELECT 
