@@ -6,6 +6,7 @@ const { getArticles } = require("./controllers/article-controller");
 const { getArticle } = require("./controllers/article-controller");
 const { getAllComments } = require("./controllers/comment-controller");
 const { patchArticle } = require("./controllers/article-controller");
+const { postComments } = require("./controllers/comment-controller");
 const {
   handlePsqErrors,
   handleCustomErrors,
@@ -24,6 +25,8 @@ app.get("/api/articles", getArticles);
 app.get("/api/articles/:article_id", getArticle);
 
 app.get("/api/articles/:article_id/comments", getAllComments);
+
+app.post("/api/articles/:article_id/comments", postComments);
 
 app.patch("/api/articles/:article_id", patchArticle);
 
