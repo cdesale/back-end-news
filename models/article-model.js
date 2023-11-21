@@ -9,11 +9,11 @@ exports.selectArticleById = (article_id) => {
     }
     return rows[0];
   });
-
+}
   exports.selectArticles = () => {
-  return db
-    .query(
-      `SELECT 
+    return db
+      .query(
+        `SELECT 
     articles.article_id,
     articles.author,
     articles.title,
@@ -30,6 +30,6 @@ GROUP BY
     articles.article_id
 ORDER BY 
     articles.created_at DESC`
-    )
-    .then(({ rows }) => rows);
-};
+      )
+      .then(({ rows }) => rows);
+  };
