@@ -6,6 +6,11 @@ const { getArticles } = require("./controllers/article-controller");
 const { getArticle } = require("./controllers/article-controller");
 const {postComments} = require("./controllers/comment-controller")
 const { getAllComments } = require("./controllers/comment-controller");
+const { patchArticle } = require("./controllers/article-controller");
+<<<<<<< HEAD
+const { postComments } = require("./controllers/comment-controller");
+=======
+>>>>>>> 8895b57 (Adds PATCH /api/articles/:article_id API)
 const {
   handlePsqErrors,
   handleCustomErrors,
@@ -26,6 +31,12 @@ app.get("/api/articles/:article_id", getArticle);
 app.post("/api/articles/:article_id/comments", postComments);
 
 app.get("/api/articles/:article_id/comments", getAllComments);
+
+app.post("/api/articles/:article_id/comments", postComments);
+
+app.patch("/api/articles/:article_id", patchArticle);
+
+app.patch("/api/articles/:article_id", patchArticle);
 
 app.use(handlePsqErrors);
 app.use(handleCustomErrors);
