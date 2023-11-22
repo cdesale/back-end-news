@@ -12,9 +12,9 @@ exports.selectArticleById = (article_id) => {
 };
 
 exports.selectArticles = () => {
-  return db
-    .query(
-      `SELECT 
+    return db
+      .query(
+        `SELECT 
     articles.article_id,
     articles.author,
     articles.title,

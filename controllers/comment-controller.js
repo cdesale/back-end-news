@@ -1,11 +1,6 @@
 const {
-<<<<<<< HEAD
   selectCommentsByArticleId,
   inserCommentsForArticleByArticleId,
-} = require("../models/comment-model");
-
-=======
-  insertCommentsForArticleByArticleId,
 } = require("../models/comment-model");
 
 exports.postComments = (req, res, next) => {
@@ -18,7 +13,6 @@ exports.postComments = (req, res, next) => {
     .catch(next);
 };
 
->>>>>>> 4c590a7 (Addressed typo error in comment-model)
 exports.getAllComments = (req, res, next) => {
   const { article_id } = req.params;
   selectCommentsByArticleId(article_id)

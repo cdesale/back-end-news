@@ -4,6 +4,7 @@ const { getTopics } = require("./controllers/topic-controller");
 const { getAvailableEndpoints } = require("./controllers/document-controller");
 const { getArticles } = require("./controllers/article-controller");
 const { getArticle } = require("./controllers/article-controller");
+const {postComments} = require("./controllers/comment-controller")
 const { getAllComments } = require("./controllers/comment-controller");
 const { patchArticle } = require("./controllers/article-controller");
 <<<<<<< HEAD
@@ -26,6 +27,8 @@ app.get("/api", getAvailableEndpoints);
 app.get("/api/articles", getArticles);
 
 app.get("/api/articles/:article_id", getArticle);
+
+app.post("/api/articles/:article_id/comments", postComments);
 
 app.get("/api/articles/:article_id/comments", getAllComments);
 
