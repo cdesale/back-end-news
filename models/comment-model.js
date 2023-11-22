@@ -19,7 +19,7 @@ ORDER BY created_at DESC;`,
       return rows;
     });
 };
-exports.inserCommentsForArticleByArticleId = (article_id, username, body) => {
+exports.insertCommentsForArticleByArticleId = (article_id, username, body) => {
   if (isNaN(article_id)) {
     return Promise.reject({ status: 400, msg: "Bad request" });
   } else if (!username || !body) {
