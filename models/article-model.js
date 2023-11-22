@@ -10,6 +10,7 @@ exports.selectArticleById = (article_id) => {
     return rows[0];
   });
 };
+
 exports.selectArticles = () => {
   return db
     .query(
