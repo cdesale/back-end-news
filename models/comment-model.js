@@ -19,8 +19,12 @@ ORDER BY created_at DESC;`,
       return rows;
     });
 };
+<<<<<<< HEAD
 
 exports.inserCommentsForArticleByArticleId = (article_id, username, body) => {
+=======
+exports.insertCommentsForArticleByArticleId = (article_id, username, body) => {
+>>>>>>> 4c590a7 (Addressed typo error in comment-model)
   if (isNaN(article_id)) {
     return Promise.reject({ status: 400, msg: "Bad request" });
   } else if (!username || !body) {
