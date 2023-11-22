@@ -23,23 +23,32 @@ describe("PATCH /api/articles/:article_id", () => {
         expect(body.msg).toBe("not found");
       });
   });
-  test("404: responds with an error msg if invalid inc_votes value", () => {
+  test("400: responds with an error msg if invalid inc_votes value", () => {
     return request(app)
       .patch("/api/articles/1")
       .send({ inc_votes: "invalid" })
       .expect(400)
       .then(({ body }) => {
-        expect(body.msg).toBe("Bad request");
+        expect(body.msg).toBe("bad request");
       });
   });
-  test("201: responds with a updated article with a given article id", () => {
+  test("400: responds with an error msg if invalid article_id", () => {
+    return request(app)
+      .patch("/api/articles/banana")
+      .send({ inc_votes: "1" })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+  test("200: responds with a updated article with a given article id", () => {
     const newVote = {
       inc_votes: 1,
     };
     return request(app)
       .patch("/api/articles/1")
       .send(newVote)
-      .expect(201)
+      .expect(200)
       .then(({ body }) => {
         expect(body.article).toMatchObject({
           article_id: 1,
@@ -54,14 +63,14 @@ describe("PATCH /api/articles/:article_id", () => {
         });
       });
   });
-  test("201: decrements voteCount if inc_votes is negative and responds with a updated article with a given article id", () => {
+  test("200: decrements voteCount if inc_votes is negative and responds with a updated article with a given article id", () => {
     const newVote = {
       inc_votes: -100,
     };
     return request(app)
       .patch("/api/articles/1")
       .send(newVote)
-      .expect(201)
+      .expect(200)
       .then(({ body }) => {
         expect(body.article).toMatchObject({
           article_id: 1,

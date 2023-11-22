@@ -1,6 +1,10 @@
-const { selectArticleById } = require("../models/article-model");
-const { selectArticles } = require("../models/article-model");
-const { updateArticleById } = require("../models/article-model");
+const {
+  selectArticleById,
+  selectArticles,
+  updateArticleById,
+  checkArticleExists,
+} = require("../models/article-model");
+
 exports.getArticle = (req, res, next) => {
   const { article_id } = req.params;
   selectArticleById(article_id)
@@ -22,13 +26,12 @@ exports.patchArticle = (req, res, next) => {
   const { article_id } = req.params;
   const { inc_votes } = req.body;
 
-  if (isNaN(article_id) || isNaN(inc_votes)) {
-    return res.status(400).send({ msg: "Bad request" });
-  }
-
-  updateArticleById(article_id, inc_votes)
-    .then((data) => {
-      res.status(201).send({ article: data });
+  Promise.all([
+    checkArticleExists(article_id),
+    updateArticleById(article_id, inc_votes),
+  ])
+    .then((resolvedPromises) => {
+      res.status(200).send({ article: resolvedPromises[1] });
     })
     .catch(next);
 };

@@ -35,9 +35,17 @@ ORDER BY
     .then(({ rows }) => rows);
 };
 
+exports.checkArticleExists = (article_id) => {
+  return db
+    .query("SELECT * FROM articles WHERE article_id = $1;", [article_id])
+    .then(({ rows }) => {
+      if (!rows.length) {
+        return Promise.reject({ status: 404, msg: "not found" });
+      }
+    });
+};
+
 exports.updateArticleById = (article_id, inc_votes) => {
-  const articleExistsQuery =
-    "SELECT EXISTS(SELECT 1 FROM articles WHERE article_id = $1);";
   const articleUpdateQuery = `
       UPDATE articles
       SET votes = votes + $1
@@ -45,13 +53,6 @@ exports.updateArticleById = (article_id, inc_votes) => {
       RETURNING *
     `;
   return db
-    .query(articleExistsQuery, [article_id])
-    .then(({ rows }) => {
-      if (!rows[0].exists) {
-        return Promise.reject({ status: 404, msg: "not found" });
-      }
-
-      return db.query(articleUpdateQuery, [inc_votes, article_id]);
-    })
+    .query(articleUpdateQuery, [inc_votes, article_id])
     .then(({ rows }) => rows[0]);
 };
