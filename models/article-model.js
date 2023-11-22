@@ -32,4 +32,4 @@ ORDER BY
     articles.created_at DESC`
       )
       .then(({ rows }) => rows);
-  };
+};
