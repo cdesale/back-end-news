@@ -1,6 +1,7 @@
 const {
   selectCommentsByArticleId,
-  inserCommentsForArticleByArticleId,
+  insertCommentsForArticleByArticleId,
+  deleteCommentById,
 } = require("../models/comment-model");
 
 exports.postComments = (req, res, next) => {
@@ -22,13 +23,12 @@ exports.getAllComments = (req, res, next) => {
     .catch(next);
 };
 
-exports.postComments = (req, res, next) => {
-  const { article_id } = req.params;
-  const { username, body } = req.body;
+exports.deleteComment = (req, res, next) => {
+  const { comment_id } = req.params;
 
-  inserCommentsForArticleByArticleId(article_id, username, body)
-    .then((data) => {
-      res.status(201).send({ comment: data });
+  deleteCommentById(comment_id)
+    .then(() => {
+      res.status(204).send("no content")
     })
     .catch(next);
 };

@@ -31,6 +31,8 @@ GROUP BY
     articles.article_id
 ORDER BY 
     articles.created_at DESC`
+      )
+      .then(({ rows }) => rows);
     )
     .then(({ rows }) => rows);
 };

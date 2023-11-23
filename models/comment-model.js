@@ -46,3 +46,25 @@ exports.insertCommentsForArticleByArticleId = (article_id, username, body) => {
     })
     .then(({ rows }) => rows);
 };
+
+exports.deleteCommentById = (comment_id) => {
+  if (isNaN(comment_id)) {
+    return Promise.reject({ status: 400, msg: "Bad request" });
+  }
+
+  const commentExistsQuery =
+    "SELECT EXISTS(SELECT 1 FROM comments WHERE comment_id = $1)";
+  return db
+    .query(commentExistsQuery, [comment_id])
+    .then(({ rows }) => {
+      const { exists } = rows[0];
+      if (!exists) {
+        return Promise.reject({ status: 404, msg: "not found" });
+      }
+      const query = `
+      DELETE FROM comments
+      WHERE comment_id = $1
+    `;
+      return db.query(query, [comment_id]);
+    })
+};
