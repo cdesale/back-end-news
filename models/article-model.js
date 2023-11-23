@@ -6,7 +6,7 @@ exports.selectArticleById = (article_id) => {
 
   return db.query(query, queryValues).then(({ rows }) => {
     if (rows.length === 0) {
-      return Promise.reject({ status: 404, msg: "Article not found" });
+      return Promise.reject({ status: 404, msg: "not found" });
     }
     return rows[0];
   });
@@ -37,7 +37,12 @@ LEFT JOIN
   query += `GROUP BY articles.article_id 
   ORDER BY articles.created_at DESC`;
 
-  return db.query(query, queryValues).then(({ rows }) => rows);
+  return db.query(query, queryValues).then(({ rows }) => {
+    if (rows.length === 0) {
+      return Promise.reject({ status: 404, msg: "not found" });
+    }
+    return rows;
+  });
 };
 
 exports.checkArticleExists = (article_id) => {

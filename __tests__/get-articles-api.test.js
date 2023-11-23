@@ -57,4 +57,20 @@ describe("GET /api/articles", () => {
         });
       });
   });
+  test("404: responds with an error msg when topic doesn't exist", () => {
+    return request(app)
+      .get("/api/articles?topic=chaitali")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("not found");
+      });
+  });
+  test("404: responds with an error msg when there are no article for the given topic", () => {
+    return request(app)
+      .get("/api/articles?topic=paper")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("not found");
+      });
+  });
 });
