@@ -12,6 +12,7 @@ const {
   postComments,
   deleteComment,
 } = require("./controllers/comment-controller");
+const { getUsers } = require("./controllers/user-controller");
 const {
   handlePsqErrors,
   handleCustomErrors,
@@ -38,6 +39,8 @@ app.post("/api/articles/:article_id/comments", postComments);
 app.patch("/api/articles/:article_id", patchArticle);
 
 app.delete("/api/comments/:comment_id", deleteComment);
+
+app.get("/api/users", getUsers);
 
 app.use(handlePsqErrors);
 app.use(handleCustomErrors);
