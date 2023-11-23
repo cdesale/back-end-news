@@ -45,7 +45,7 @@ describe("GET /api/articles/:article_id", () => {
       .get("/api/articles/100")
       .expect(404)
       .then(({ body }) => {
-        expect(body.msg).toBe("Article not found");
+        expect(body.msg).toBe("not found");
       });
   });
 });

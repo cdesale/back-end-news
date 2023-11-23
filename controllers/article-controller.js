@@ -15,7 +15,8 @@ exports.getArticle = (req, res, next) => {
 };
 
 exports.getArticles = (req, res, next) => {
-  selectArticles()
+  const { topic } = req.query;
+  selectArticles(topic)
     .then((data) => {
       res.status(200).send({ articles: data });
     })

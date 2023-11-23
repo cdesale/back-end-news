@@ -38,4 +38,41 @@ describe("GET /api/articles", () => {
         });
       });
   });
+  test("responds with the article of the given query", () => {
+    return request(app)
+      .get("/api/articles?topic=mitch")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toHaveLength(12);
+        articles.forEach((article) => {
+          expect(articles.hasOwnProperty("body")).toBe(false);
+          expect(article.topic).toBe("mitch");
+          expect(article).toMatchObject({
+            title: expect.any(String),
+            author: expect.any(String),
+            created_at: expect.any(String),
+            article_img_url: expect.any(String),
+          });
+        });
+      });
+  });
+  test("404: responds with an error msg when topic doesn't exist", () => {
+    return request(app)
+      .get("/api/articles?topic=chaitali")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("not found");
+      });
+  });
+  test("200: responds with an error msg when there are no articles for the given topic", () => {
+    return request(app)
+      .get("/api/articles?topic=paper")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toHaveLength(0);
+        expect(articles).toEqual([]);
+      });
+  });
 });
