@@ -2,16 +2,17 @@ const express = require("express");
 
 const { getTopics } = require("./controllers/topic-controller");
 const { getAvailableEndpoints } = require("./controllers/document-controller");
-const { 
-  getArticles, 
-  getArticle, 
-  patchArticle 
+const {
+  getArticles,
+  getArticle,
+  patchArticle,
 } = require("./controllers/article-controller");
 const {
   getAllComments,
   postComments,
   deleteComment,
 } = require("./controllers/comment-controller");
+const { getUsers } = require("./controllers/user-controller");
 const {
   handlePsqErrors,
   handleCustomErrors,
@@ -39,6 +40,7 @@ app.patch("/api/articles/:article_id", patchArticle);
 
 app.delete("/api/comments/:comment_id", deleteComment);
 
+app.get("/api/users", getUsers);
 
 app.use(handlePsqErrors);
 app.use(handleCustomErrors);
