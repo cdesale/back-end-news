@@ -29,19 +29,32 @@ LEFT JOIN
     `;
   const queryValues = [];
 
+  const promises = [];
+
   if (topic) {
+    const topicExistsQuery = `SELECT EXISTS(SELECT 1 FROM topics WHERE slug = $1);`;
+    const topicExistsPromise = db.query(topicExistsQuery, [topic]);
+    promises.push(topicExistsPromise);
     queryValues.push(topic);
     query += ` WHERE topic = $1`;
   }
 
-  query += `GROUP BY articles.article_id 
+  query += ` GROUP BY articles.article_id 
   ORDER BY articles.created_at DESC`;
 
-  return db.query(query, queryValues).then(({ rows }) => {
-    if (rows.length === 0) {
-      return Promise.reject({ status: 404, msg: "not found" });
+  const articlePromise = db.query(query, queryValues);
+
+  promises.push(articlePromise);
+  return Promise.all(promises).then((resolvedPromises) => {
+    if (topic) {
+      if (!resolvedPromises[0].rows[0].exists) {
+        return Promise.reject({ status: 404, msg: "not found" });
+      } else {
+        return resolvedPromises[1].rows;
+      }
+    } else {
+      return resolvedPromises[0].rows;
     }
-    return rows;
   });
 };
 

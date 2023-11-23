@@ -65,12 +65,14 @@ describe("GET /api/articles", () => {
         expect(body.msg).toBe("not found");
       });
   });
-  test("404: responds with an error msg when there are no article for the given topic", () => {
+  test("200: responds with an error msg when there are no articles for the given topic", () => {
     return request(app)
       .get("/api/articles?topic=paper")
-      .expect(404)
+      .expect(200)
       .then(({ body }) => {
-        expect(body.msg).toBe("not found");
+        const { articles } = body;
+        expect(articles).toHaveLength(0);
+        expect(articles).toEqual([]);
       });
   });
 });
