@@ -17,11 +17,7 @@ exports.selectArticleById = (article_id) => {
 };
 
 exports.selectArticles = (topic) => {
-  let query = `SELECT 
-exports.selectArticles = () => {
-  return db
-    .query(
-      `SELECT 
+  let query = `SELECT
     articles.article_id,
     articles.author,
     articles.title,
@@ -64,14 +60,7 @@ LEFT JOIN
       return resolvedPromises[0].rows;
     }
   });
-GROUP BY 
-    articles.article_id
-ORDER BY 
-    articles.created_at DESC`
-    )
-    .then(({ rows }) => rows);
 };
-
 exports.checkArticleExists = (article_id) => {
   return db
     .query("SELECT * FROM articles WHERE article_id = $1;", [article_id])
