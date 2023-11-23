@@ -38,4 +38,23 @@ describe("GET /api/articles", () => {
         });
       });
   });
+  test("responds with the article of the given query", () => {
+    return request(app)
+      .get("/api/articles?topic=mitch")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toHaveLength(12);
+        articles.forEach((article) => {
+          expect(articles.hasOwnProperty("body")).toBe(false);
+          expect(article.topic).toBe("mitch");
+          expect(article).toMatchObject({
+            title: expect.any(String),
+            author: expect.any(String),
+            created_at: expect.any(String),
+            article_img_url: expect.any(String),
+          });
+        });
+      });
+  });
 });

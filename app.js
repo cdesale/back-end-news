@@ -2,10 +2,10 @@ const express = require("express");
 
 const { getTopics } = require("./controllers/topic-controller");
 const { getAvailableEndpoints } = require("./controllers/document-controller");
-const { 
-  getArticles, 
-  getArticle, 
-  patchArticle 
+const {
+  getArticles,
+  getArticle,
+  patchArticle,
 } = require("./controllers/article-controller");
 const {
   getAllComments,
@@ -38,7 +38,6 @@ app.post("/api/articles/:article_id/comments", postComments);
 app.patch("/api/articles/:article_id", patchArticle);
 
 app.delete("/api/comments/:comment_id", deleteComment);
-
 
 app.use(handlePsqErrors);
 app.use(handleCustomErrors);
