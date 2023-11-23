@@ -21,6 +21,7 @@ describe("GET /api/articles/:article_id", () => {
       .then(({ body }) => {
         const { article } = body;
         expect(article.article_id).toBe(1);
+        expect(article.comment_count).toBe(11);
         expect(article).toMatchObject({
           title: expect.any(String),
           topic: expect.any(String),

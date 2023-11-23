@@ -1,7 +1,11 @@
 const db = require("../db/connection");
 
 exports.selectArticleById = (article_id) => {
-  let query = `SELECT * FROM articles WHERE article_id = $1`;
+  let query = `
+  SELECT *, 
+  (SELECT COUNT(1) FROM comments WHERE article_id = $1)::int AS comment_count
+  FROM articles
+  WHERE article_id = $1`;
   const queryValues = [article_id];
   return db.query(query, queryValues).then(({ rows }) => {
     if (rows.length === 0) {
@@ -12,9 +16,9 @@ exports.selectArticleById = (article_id) => {
 };
 
 exports.selectArticles = () => {
-    return db
-      .query(
-        `SELECT 
+  return db
+    .query(
+      `SELECT 
     articles.article_id,
     articles.author,
     articles.title,
@@ -31,8 +35,6 @@ GROUP BY
     articles.article_id
 ORDER BY 
     articles.created_at DESC`
-      )
-      .then(({ rows }) => rows);
     )
     .then(({ rows }) => rows);
 };
