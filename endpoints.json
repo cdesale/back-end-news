@@ -13,7 +13,7 @@
   },
   "GET /api/articles": {
     "description": "serves an array of all articles, articles are sorted by date in descending order, total count of all the comments with this article_id as one of the properties. If given a query, serves an array of all articles for that query",
-    "queries": ["topic"],
+    "queries": ["topic", "sort_by", "order"],
     "exampleResponse": {
       "articles": [
         {
