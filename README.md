@@ -4,7 +4,7 @@
 
 Use the below link to interact with hosted application
 
-- link: https://news-back-end.onrender.com
+- link: https://news-back-end.onrender.com/api
 
 ## Summary of this project
 
